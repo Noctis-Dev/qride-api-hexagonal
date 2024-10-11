@@ -3,14 +3,14 @@ import uuid
 from sqlalchemy.orm import Session
 from app.users.domain.models import User
 from app.users.domain.repositories import UserRepository
-from app.users.infrastructure.user_model import User as UserModel
+from qride_api_hexagonal.app.users.infrastructure.sql_model import User as UserModel
 
 class SQLAlchemyUserRepository(UserRepository):
     def __init__(self, db: Session):
         self.db = db
 
-    def get(self, user_id: int) -> Optional[User]:
-        user_model = self.db.query(UserModel).filter_by(user_id=user_id).first()
+    def get(self, user_uuid: str) -> Optional[User]:
+        user_model = self.db.query(UserModel).filter_by(user_uuid=user_uuid).first()
         if user_model:
             return User(
                 user_id=user_model.user_id,
@@ -37,7 +37,18 @@ class SQLAlchemyUserRepository(UserRepository):
         self.db.add(user_model)
         self.db.commit()
         self.db.refresh(user_model)
-        return user_model
+        return User(
+            user_id=user_model.user_id,
+            user_uuid=user_model.user_uuid,
+            email=user_model.email,
+            full_name=user_model.full_name,
+            password=user_model.password,
+            phone_number=user_model.phone_number,   
+            user_rol=user_model.user_rol,
+            profile_picture=user_model.profile_picture,
+            current_points=user_model.current_points,
+            balance=user_model.balance,
+        )
 
     def update(self, user: User) -> None:
         user_model = self.db.query(UserModel).filter_by(user_id=user.user_id).first()

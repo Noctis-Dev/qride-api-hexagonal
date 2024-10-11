@@ -4,7 +4,7 @@ from app.users.domain.models import User
 
 class UserRepository(ABC):
     @abstractmethod
-    def get(self, user_id: int) -> Optional[User]:
+    def get(self, user_uuid: str) -> Optional[User]:
         pass
 
     @abstractmethod

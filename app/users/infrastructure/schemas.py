@@ -22,7 +22,7 @@ class UserInDBBase(UserBase):
     user_uuid: str
 
     class Config:
-        from_attributes = True
+        orm_mode = True
 
 class UserInDB(UserInDBBase):
     hashed_password: str

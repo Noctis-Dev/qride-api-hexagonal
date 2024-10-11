@@ -1,8 +1,7 @@
-# interface/controllers.py
 from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
-from app.users.infrastructure.user_repository import SQLAlchemyUserRepository
+from app.users.infrastructure.sql_repository import SQLAlchemyUserRepository
 from app.users.application.services import UserService
 from app.users.infrastructure.schemas import UserCreate, UserUpdate, User
 from app.db import get_db
@@ -14,7 +13,6 @@ router = APIRouter()
 def update_user(user_id: int, user_update: UserUpdate, db: Session = Depends(get_db)):
     user_repository = SQLAlchemyUserRepository(db)
     user_service = UserService(user_repository)
-
     try:
         user_service.update_user(user_id, full_name=user_update.full_name, phone_number=user_update.phone_number)
         updated_user = user_repository.get(user_id)
@@ -26,7 +24,6 @@ def update_user(user_id: int, user_update: UserUpdate, db: Session = Depends(get
 def create_user(user_create: UserCreate, db: Session = Depends(get_db)):
     user_repository = SQLAlchemyUserRepository(db)
     user_service = UserService(user_repository)
-
     try:
         new_user = user_service.create_user(
             email=user_create.email,

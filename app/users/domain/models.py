@@ -1,7 +1,8 @@
 
 class User:
-    def __init__(self, user_id: int, email: str, full_name: str, phone_number: str, password: str, user_rol: int, profile_picture: str, current_points: int, balance: float):
+    def __init__(self, user_id: int, user_uuid: str, email: str, full_name: str, phone_number: str, password: str, user_rol: int, profile_picture: str, current_points: int, balance: float):
         self.user_id = user_id
+        self.user_uuid = user_uuid
         self.email = email
         self.full_name = full_name
         self.phone_number = phone_number
