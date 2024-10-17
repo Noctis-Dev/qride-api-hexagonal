@@ -18,7 +18,7 @@ class Vehicle(VehicleBase):
     vehicle_id: int
 
     class Config:
-        from_attributes = True
+        orm_mode = True
 
 class VehicleUserBase(BaseModel):
     vehicle_id: int
@@ -37,4 +37,4 @@ class VehicleUser(VehicleUserBase):
     vehicle_users_id: int
 
     class Config:
-        from_attributes = True
+        orm_mode = True

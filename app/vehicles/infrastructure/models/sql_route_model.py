@@ -1,7 +1,7 @@
 from sqlalchemy import Column, BigInteger, String, ForeignKey
 from sqlalchemy.orm import relationship
 from app.db import Base  
-from app.models.city_model import City
+from app.vehicles.infrastructure.models.sql_city_model import City
 
 class Route(Base):
     __tablename__ = 'routes'
