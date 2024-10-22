@@ -1,4 +1,3 @@
-
 class User:
     def __init__(self, user_id: int, user_uuid: str, email: str, full_name: str, phone_number: str, password: str, user_rol: int, profile_picture: str, current_points: int, balance: float):
         self.user_id = user_id
@@ -21,4 +20,4 @@ class User:
     @staticmethod
     def create_new_user(email: str, password: str, full_name: str, phone_number: str, user_rol: int, profile_picture: str, current_points: int, balance: float):
         # Aquí puedes agregar más validaciones de negocio si es necesario
-        return User(user_id=None, email=email, password=password, full_name=full_name, phone_number=phone_number, user_rol=user_rol, profile_picture=profile_picture, current_points=current_points, balance=balance)
+        return User(user_id=None, user_uuid=None, email=email, password=password, full_name=full_name, phone_number=phone_number, user_rol=user_rol, profile_picture=profile_picture, current_points=current_points, balance=balance)
