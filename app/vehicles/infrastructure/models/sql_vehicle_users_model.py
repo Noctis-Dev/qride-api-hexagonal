@@ -14,4 +14,4 @@ class VehicleUser(Base):
     is_owner = Column(Boolean)
 
     user = relationship('User')
-    vehicle = relationship('Vehicle')
+    vehicle = relationship('SQLVehicle')

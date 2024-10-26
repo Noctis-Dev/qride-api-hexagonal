@@ -12,4 +12,5 @@ class UpdateTransactionUseCase:
         transaction = self.transaction_repository.get(transaction_uuid)
         transaction.update_transaction(commission=commission, description=description,
                                        transaction_date=transaction_date, related_transaction_id=related_transaction_id)
+        self.transaction_repository.update(transaction)
         return True

@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from qride_api_hexagonal.app.vehicles.infrastructure.repositories.sql_repository import SQLAlchemyVehicleRepository
+from app.vehicles.infrastructure.repositories.sql_repository import SQLAlchemyVehicleRepository
 from app.vehicles.application.use_cases.delete_vehicle_use_case import DeleteVehicleUseCase
 from app.vehicles.infrastructure.schemas import Vehicle
 from app.db import get_db

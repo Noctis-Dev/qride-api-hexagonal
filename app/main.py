@@ -1,4 +1,10 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.util import get_remote_address
+from fastapi.middleware.cors import CORSMiddleware
+from starlette.responses import JSONResponse
+import os
+from dotenv import load_dotenv
 from app.db import engine, Base, SessionLocal
 from app.roles.infrastructure.sql_repository import SQLAlchemyRoleRepository
 from app.roles.application.services import RoleService
@@ -16,13 +22,12 @@ from app.vehicles.infrastructure.controllers.list_vehicle_users_by_vehicle_contr
 from app.vehicles.infrastructure.controllers.update_vehicle_controller import UpdateVehicleController
 from app.vehicles.infrastructure.controllers.delete_vehicle_controller import DeleteVehicleController
 
+load_dotenv()
 
 # Crear la base de datos y las tablas
 Base.metadata.create_all(bind=engine)
 
 # Inicializar los roles
-
-
 def initialize_roles():
     db = SessionLocal()
     role_repo = SQLAlchemyRoleRepository(db)
@@ -30,10 +35,29 @@ def initialize_roles():
     role_service.initialize_roles()
     db.close()
 
-
 initialize_roles()
 
+# Configuración del límite de peticiones global (5/minuto por IP)
+limiter = Limiter(key_func=get_remote_address, default_limits=["100/minute"])
+
 app = FastAPI()
+app.state.limiter = limiter
+app.add_exception_handler(429, _rate_limit_exceeded_handler)
+
+# Configuración de CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Middleware para aplicar el límite global a todas las rutas
+@app.middleware("http")
+async def rate_limit_middleware(request: Request, call_next):
+    response = await limiter(request, call_next)
+    return response
 
 app.include_router(CreateUserController.router, prefix="/api/v1")
 app.include_router(ListUsersController.router, prefix="/api/v1")

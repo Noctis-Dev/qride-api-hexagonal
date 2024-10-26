@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Optional
+from typing import Optional, List
 from app.payments.domain.transaction_model import Transaction
 
 
@@ -9,11 +9,11 @@ class TransactionRepository:
         pass
 
     @abstractmethod
-    def get_transactions_by_user(self, skip: int = 0, limit: int = 100, user_id: int = None):
+    def get_transactions_by_user(self, skip: int = 0, limit: int = 100, user_id: int = None) -> Optional[List[Transaction]]:
         pass
 
     @abstractmethod
-    def save(self, transaction: Transaction) -> Transaction:
+    def save(self, transaction: Transaction) -> Optional[Transaction]:
         pass
 
     @abstractmethod

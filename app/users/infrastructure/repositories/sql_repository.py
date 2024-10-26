@@ -3,14 +3,16 @@ import uuid
 from sqlalchemy.orm import Session
 from app.users.domain.models import User
 from app.users.domain.repositories import UserRepository
-from qride_api_hexagonal.app.users.infrastructure.models.sql_user_model import User as UserModel
+from app.users.infrastructure.models.sql_user_model import User as UserModel
+
 
 class SQLAlchemyUserRepository(UserRepository):
     def __init__(self, db: Session):
         self.db = db
 
     def get(self, user_uuid: str) -> Optional[User]:
-        user_model = self.db.query(UserModel).filter(UserModel.user_uuid == user_uuid).first()
+        user_model = self.db.query(UserModel).filter(
+            UserModel.user_uuid == user_uuid).first()
         if user_model:
             return User(
                 user_id=user_model.user_id,
@@ -25,9 +27,10 @@ class SQLAlchemyUserRepository(UserRepository):
                 user_uuid=user_model.user_uuid
             )
         return None
-    
+
     def get_user_by_email(self, email: str) -> Optional[User]:
-        user_model = self.db.query(UserModel).filter(UserModel.email == email).first()
+        user_model = self.db.query(UserModel).filter(
+            UserModel.email == email).first()
         if user_model:
             return User(
                 user_id=user_model.user_id,
@@ -42,7 +45,7 @@ class SQLAlchemyUserRepository(UserRepository):
                 user_uuid=user_model.user_uuid
             )
         return None
-    
+
     def get_users(self, skip: int = 0, limit: int = 100) -> List[User]:
         user_models = self.db.query(UserModel).offset(skip).limit(limit).all()
         users = [
@@ -79,7 +82,7 @@ class SQLAlchemyUserRepository(UserRepository):
             email=user_model.email,
             full_name=user_model.full_name,
             password=user_model.password,
-            phone_number=user_model.phone_number,   
+            phone_number=user_model.phone_number,
             user_rol=user_model.user_rol,
             profile_picture=user_model.profile_picture,
             current_points=user_model.current_points,
@@ -87,7 +90,8 @@ class SQLAlchemyUserRepository(UserRepository):
         )
 
     def update(self, user: User) -> None:
-        user_model = self.db.query(UserModel).filter_by(user_id=user.user_id).first()
+        user_model = self.db.query(UserModel).filter_by(
+            user_id=user.user_id).first()
         if user_model:
             user_model.full_name = user.full_name
             user_model.phone_number = user.phone_number
@@ -97,7 +101,8 @@ class SQLAlchemyUserRepository(UserRepository):
             raise ValueError(f"User with id {user.user_id} not found")
 
     def delete(self, user: User) -> None:
-        user_model = self.db.query(UserModel).filter_by(user_id= user.user_id).first()
+        user_model = self.db.query(UserModel).filter_by(
+            user_id=user.user_id).first()
         if user_model:
             self.db.delete(user_model)
             self.db.commit()
