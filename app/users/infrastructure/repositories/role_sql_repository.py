@@ -1,8 +1,8 @@
 from sqlalchemy.orm import Session
 from typing import Optional
-from app.roles.domain.models import Role
-from app.roles.infrastructure.sql_model import Role as RoleModel
-from app.roles.domain.repository import RoleRepository
+from app.users.domain.models.role_model import Role
+from app.users.infrastructure.models.sql_rol_model import Role as RoleModel
+from app.users.domain.repositories.role_repository import RoleRepository
 import uuid
 
 class SQLAlchemyRoleRepository(RoleRepository):

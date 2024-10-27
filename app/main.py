@@ -2,12 +2,11 @@ from fastapi import FastAPI, Request
 from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.util import get_remote_address
 from fastapi.middleware.cors import CORSMiddleware
-from starlette.responses import JSONResponse
 import os
 from dotenv import load_dotenv
 from app.db import engine, Base, SessionLocal
-from app.roles.infrastructure.sql_repository import SQLAlchemyRoleRepository
-from app.roles.application.services import RoleService
+from app.users.infrastructure.repositories.role_sql_repository import SQLAlchemyRoleRepository
+from app.users.application.use_cases.Initialize_user_roles_use_case import InitializeUserRolesUseCase
 from app.users.infrastructure.controllers.create_user_controller import CreateUserController
 from app.users.infrastructure.controllers.list_users_controller import ListUsersController
 from app.users.infrastructure.controllers.update_user_controller import UpdateUserController
@@ -23,6 +22,7 @@ from app.vehicles.infrastructure.controllers.update_vehicle_controller import Up
 from app.vehicles.infrastructure.controllers.delete_vehicle_controller import DeleteVehicleController
 
 load_dotenv()
+JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY")
 
 # Crear la base de datos y las tablas
 Base.metadata.create_all(bind=engine)
@@ -31,8 +31,8 @@ Base.metadata.create_all(bind=engine)
 def initialize_roles():
     db = SessionLocal()
     role_repo = SQLAlchemyRoleRepository(db)
-    role_service = RoleService(role_repo)
-    role_service.initialize_roles()
+    role_service = InitializeUserRolesUseCase(role_repo)
+    role_service.execute()
     db.close()
 
 initialize_roles()

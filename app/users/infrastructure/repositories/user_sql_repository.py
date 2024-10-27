@@ -1,8 +1,8 @@
 from typing import List, Optional
 import uuid
 from sqlalchemy.orm import Session
-from app.users.domain.models import User
-from app.users.domain.repositories import UserRepository
+from app.users.domain.models.user_model import User
+from app.users.domain.repositories.user_repository import UserRepository
 from app.users.infrastructure.models.sql_user_model import User as UserModel
 
 

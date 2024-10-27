@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.orm import Session
-from app.users.infrastructure.repositories.sql_repository import SQLAlchemyUserRepository
+from app.users.infrastructure.repositories.user_sql_repository import SQLAlchemyUserRepository
 from app.users.application.use_cases.update_user_use_case import UpdateUserUseCase
 from app.users.infrastructure.schemas import UserUpdate, User
 from app.db import get_db

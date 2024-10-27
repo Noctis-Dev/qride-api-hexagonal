@@ -1,5 +1,5 @@
-from app.users.domain.repositories import UserRepository
-from app.users.domain.models import User
+from app.users.domain.repositories.user_repository import UserRepository
+from app.users.domain.models.user_model import User
 
 class CreateUserUseCase: 
     def __init__(self, user_repository: UserRepository) -> None:

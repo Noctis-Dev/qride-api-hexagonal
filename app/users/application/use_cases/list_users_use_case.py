@@ -1,4 +1,4 @@
-from app.users.domain.repositories import UserRepository
+from app.users.domain.repositories.user_repository import UserRepository
 
 class ListUsersUseCase:
     def __init__(self, user_repository: UserRepository):

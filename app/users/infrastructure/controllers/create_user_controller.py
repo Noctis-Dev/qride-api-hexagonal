@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
-from app.users.infrastructure.repositories.sql_repository import SQLAlchemyUserRepository
+from app.users.infrastructure.repositories.user_sql_repository import SQLAlchemyUserRepository
 from app.users.application.use_cases.create_user_use_case import CreateUserUseCase
 from app.users.infrastructure.schemas import UserCreate, User
 from app.db import get_db

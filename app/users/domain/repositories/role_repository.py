@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import Optional
-from app.roles.domain.models import Role
+from app.users.domain.models.role_model import Role
 
 class RoleRepository(ABC):
     @abstractmethod

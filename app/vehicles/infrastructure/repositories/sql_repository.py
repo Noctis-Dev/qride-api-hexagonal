@@ -6,7 +6,7 @@ from app.vehicles.domain.models import VehicleUser
 from app.vehicles.domain.repositories import VehicleRepository
 from app.vehicles.infrastructure.models.sql_vehicle_model import SQLVehicle
 from app.vehicles.infrastructure.models.sql_vehicle_users_model import VehicleUser as VehicleUserModel
-from app.users.infrastructure.repositories.sql_repository import UserRepository
+from app.users.infrastructure.repositories.user_sql_repository import SQLAlchemyUserRepository
 
 
 class SQLAlchemyVehicleRepository(VehicleRepository):

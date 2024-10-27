@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.orm import Session
-from app.users.infrastructure.repositories.sql_repository import SQLAlchemyUserRepository
+from app.users.infrastructure.repositories.user_sql_repository import SQLAlchemyUserRepository
 from app.users.application.use_cases.read_user_by_email_use_case import ReadUserByEmailUseCase
 from app.users.infrastructure.schemas import User
 from app.db import get_db
