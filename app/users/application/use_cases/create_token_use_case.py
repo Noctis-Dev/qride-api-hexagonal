@@ -5,5 +5,6 @@ class CreateTokenUseCase:
     def __init__(self, token_repository: TokenRepository):
         self.token_repository = token_repository
         
-    def execute(self, token: Token):
+    def execute(self):
+        token = Token.create_verification_token()
         return self.token_repository.save(token)

@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 from app.users.domain.models.user_model import User
 
 class Contact: 
