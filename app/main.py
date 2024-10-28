@@ -1,11 +1,13 @@
-from fastapi import FastAPI, Request
-from slowapi import Limiter, _rate_limit_exceeded_handler
-from slowapi.util import get_remote_address
+from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import os
+from fastapi_limiter import FastAPILimiter
+from fastapi_limiter.depends import RateLimiter
+from contextlib import asynccontextmanager
+from redis.asyncio import Redis
 from dotenv import load_dotenv
 from app.db import engine, Base, SessionLocal
-from app.users.infrastructure.repositories.role_sql_repository import SQLAlchemyRoleRepository
+from app.users.infrastructure.repositories.sql_role_repository import SQLAlchemyRoleRepository
 from app.users.application.use_cases.Initialize_user_roles_use_case import InitializeUserRolesUseCase
 from app.users.infrastructure.controllers.create_user_controller import CreateUserController
 from app.users.infrastructure.controllers.list_users_controller import ListUsersController
@@ -34,16 +36,11 @@ def initialize_roles():
     role_service = InitializeUserRolesUseCase(role_repo)
     role_service.execute()
     db.close()
-
+    
 initialize_roles()
 
-# Configuración del límite de peticiones global (5/minuto por IP)
-limiter = Limiter(key_func=get_remote_address, default_limits=["100/minute"])
-
 app = FastAPI()
-app.state.limiter = limiter
-app.add_exception_handler(429, _rate_limit_exceeded_handler)
-
+    
 # Configuración de CORS
 app.add_middleware(
     CORSMiddleware,
@@ -52,12 +49,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-# Middleware para aplicar el límite global a todas las rutas
-@app.middleware("http")
-async def rate_limit_middleware(request: Request, call_next):
-    response = await limiter(request, call_next)
-    return response
 
 app.include_router(CreateUserController.router, prefix="/api/v1")
 app.include_router(ListUsersController.router, prefix="/api/v1")
@@ -69,11 +60,9 @@ app.include_router(CreateVehicleController.router, prefix="/api/v1")
 app.include_router(ListVehiclesController.router, prefix="/api/v1")
 app.include_router(ListVehicleByRouteController.router, prefix="/api/v1")
 app.include_router(ListVehicleUsersByUserController.router, prefix="/api/v1")
-app.include_router(
-    ListVehicleUsersByVehicleController.router, prefix="/api/v1")
+app.include_router(ListVehicleUsersByVehicleController.router, prefix="/api/v1")
 app.include_router(UpdateVehicleController.router, prefix="/api/v1")
 app.include_router(DeleteVehicleController.router, prefix="/api/v1")
-
 
 @app.get("/")
 def read_root():

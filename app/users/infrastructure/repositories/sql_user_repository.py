@@ -56,6 +56,10 @@ class SQLAlchemyUserRepository(UserRepository):
                 phone_number=user_model.phone_number,
                 password=user_model.password,
                 user_rol=user_model.user_rol,
+                user_uuid=user_model.user_uuid,
+                balance=user_model.balance,
+                current_points=user_model.current_points,
+                profile_picture=user_model.profile_picture
             )
             for user_model in user_models
         ]

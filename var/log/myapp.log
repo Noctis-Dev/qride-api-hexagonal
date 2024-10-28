@@ -1,0 +1,10 @@
+2024-10-26 20:21:27,195 - INFO - Intentando crear usuario con email: string
+2024-10-26 20:21:27,204 - ERROR - Error de integridad al crear usuario string: (pymysql.err.IntegrityError) (1452, 'Cannot add or update a child row: a foreign key constraint fails (`qride`.`users`, CONSTRAINT `users_ibfk_1` FOREIGN KEY (`user_rol`) REFERENCES `roles` (`rol_id`))')
+[SQL: INSERT INTO users (user_uuid, email, password, user_rol, full_name, profile_picture, current_points, balance, phone_number) VALUES (%(user_uuid)s, %(email)s, %(password)s, %(user_rol)s, %(full_name)s, %(profile_picture)s, %(current_points)s, %(balance)s, %(phone_number)s)]
+[parameters: {'user_uuid': UUID('2b2e345c-5eef-42bc-a444-3578a313964c'), 'email': 'string', 'password': 'string', 'user_rol': 0, 'full_name': 'string', 'profile_picture': 'string', 'current_points': 0, 'balance': 0.0, 'phone_number': 'string'}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2024-10-26 20:21:37,332 - INFO - Intentando crear usuario con email: string
+2024-10-26 20:21:37,349 - INFO - Usuario creado exitosamente: string
+2024-10-26 20:22:17,060 - INFO - Intentando crear usuario con email: string
+2024-10-26 20:22:17,071 - INFO - Usuario creado exitosamente: string
+2024-10-26 20:58:00,341 - INFO - 4 users have been listed.

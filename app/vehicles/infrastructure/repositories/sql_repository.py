@@ -6,7 +6,7 @@ from app.vehicles.domain.models import VehicleUser
 from app.vehicles.domain.repositories import VehicleRepository
 from app.vehicles.infrastructure.models.sql_vehicle_model import SQLVehicle
 from app.vehicles.infrastructure.models.sql_vehicle_users_model import VehicleUser as VehicleUserModel
-from app.users.infrastructure.repositories.user_sql_repository import SQLAlchemyUserRepository
+from app.users.infrastructure.repositories.sql_user_repository import SQLAlchemyUserRepository
 
 
 class SQLAlchemyVehicleRepository(VehicleRepository):
@@ -112,7 +112,7 @@ class SQLAlchemyVehicleRepository(VehicleRepository):
          
 
     def get_vehicle_users_by_user(self, user_uuid: str) -> List[Vehicle]:
-        db_user = UserRepository(self.db).get(user_uuid)
+        db_user = SQLAlchemyUserRepository(self.db).get(user_uuid)
         db_vehicle_users = self.db.query(VehicleUserModel).filter(VehicleUserModel.user_id == db_user.user_id).all()
         vehicle_users = [
             VehicleUser(
