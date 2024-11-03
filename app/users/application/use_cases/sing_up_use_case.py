@@ -19,5 +19,6 @@ class SingUpUseCase:
         credential = self.create_credential_use_case.execute(request, contact, token)
         
         
+        
         return credential
         
