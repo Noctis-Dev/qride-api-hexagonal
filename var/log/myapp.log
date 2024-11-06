@@ -8,3 +8,6 @@
 2024-10-26 20:22:17,060 - INFO - Intentando crear usuario con email: string
 2024-10-26 20:22:17,071 - INFO - Usuario creado exitosamente: string
 2024-10-26 20:58:00,341 - INFO - 4 users have been listed.
+2024-10-28 12:24:27,241 - INFO - 0 users have been listed.
+2024-10-28 12:25:44,969 - INFO - Trying to create user with email: lego123490@gmail.com
+2024-10-28 12:25:45,038 - INFO - User with email lego123490@gmail.com created successfully.

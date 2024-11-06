@@ -27,3 +27,7 @@ docs/
 
 # Ignora archivos de logs
 logs/
+
+# Ignora archivos de __pycache__
+
+__pycache__/
