@@ -1,5 +1,6 @@
 from app.users.domain.models.contact_model import Contact
 from app.users.application.schemas.requests.contact_request import ContactRequest
+from app.users.application.schemas.responses.contact_response import ContactResponse
 
 class ContactMapper:
     @staticmethod
@@ -25,3 +26,9 @@ class ContactMapper:
             'name': contact.name,
             'created_at': contact.created_at
         }
+    
+    @staticmethod
+    def to_response(contact: Contact) -> ContactResponse:
+        return ContactResponse(
+            name=contact.name,
+        )

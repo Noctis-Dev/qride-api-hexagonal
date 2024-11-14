@@ -8,3 +8,8 @@
 2024-10-26 20:22:17,060 - INFO - Intentando crear usuario con email: string
 2024-10-26 20:22:17,071 - INFO - Usuario creado exitosamente: string
 2024-10-26 20:58:00,341 - INFO - 4 users have been listed.
+2024-11-05 00:33:31,627 - INFO - Trying to create contact with email: migue@hama.com
+2024-11-05 00:35:36,032 - INFO - Trying to create contact with email: migue@hama.com
+2024-11-05 00:35:36,053 - INFO - Contact with email migue@hama.com created successfully.
+2024-11-05 00:41:09,535 - INFO - Trying to create contact with email: migue@hama.com
+2024-11-05 00:41:09,563 - INFO - Contact with email migue@hama.com created successfully.

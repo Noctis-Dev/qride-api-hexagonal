@@ -9,4 +9,5 @@ class CreateContactUseCase:
 
     def execute(self, request: ContactRequest) -> Contact:
         contact = ContactMapper.to_domain(request)
-        return self.contact_repository.save(contact)
+        self.contact_repository.save(contact)
+        return ContactMapper.to_response(contact)

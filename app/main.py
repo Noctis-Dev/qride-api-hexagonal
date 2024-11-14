@@ -22,6 +22,7 @@ from app.vehicles.infrastructure.controllers.list_vehicle_users_by_user_controll
 from app.vehicles.infrastructure.controllers.list_vehicle_users_by_vehicle_controller import ListVehicleUsersByVehicleController
 from app.vehicles.infrastructure.controllers.update_vehicle_controller import UpdateVehicleController
 from app.vehicles.infrastructure.controllers.delete_vehicle_controller import DeleteVehicleController
+from app.users.infrastructure.controllers.create_contact_controller import CreateContactController
 
 load_dotenv()
 JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY")
@@ -63,6 +64,7 @@ app.include_router(ListVehicleUsersByUserController.router, prefix="/api/v1")
 app.include_router(ListVehicleUsersByVehicleController.router, prefix="/api/v1")
 app.include_router(UpdateVehicleController.router, prefix="/api/v1")
 app.include_router(DeleteVehicleController.router, prefix="/api/v1")
+app.include_router(CreateContactController.router, prefix="/api/v1")
 
 @app.get("/")
 def read_root():
