@@ -7,12 +7,12 @@ import os
 load_dotenv()
 JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY")
 JWT_ALGORITHM = "HS256"
-JWT_EXPIRATION_TIME_MINUTES = 60
+JWT_EXPIRATION_TIME_DAYS = 60
 
 class JWTService:
     @staticmethod
     def generate_token(username: str) -> str:
-        expiration = datetime.utcnow() + timedelta(minutes=JWT_EXPIRATION_TIME_MINUTES)
+        expiration = datetime.utcnow() + timedelta(days=JWT_EXPIRATION_TIME_DAYS)
         payload = {
             "sub": username,
             "exp": expiration
